@@ -55,8 +55,7 @@ button {
 }
 
 a:focus-visible,
-button:focus-visible,
-input:focus-visible {
+button:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 4px;
 }
@@ -88,19 +87,26 @@ input:focus-visible {
   padding: 1.15rem;
   font-size: 1rem;
   font-family: var(--primary-font);
-  border: none;
+  border: 3px solid var(--primary-color);
   border-top-left-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
-  transition: font-size 0.2s ease-in-out;
+  transition: font-size 0.2s ease-in-out, border-color 0.2s ease-in-out;
 }
 
 .form__input:placeholder-shown {
   font-size: 0.9rem;
 }
 
+
+.form__input:focus{
+  border-color: var(--secondary-color);
+  outline: none;
+}
+
 .form__input::-webkit-search-cancel-button {
   position: absolute;
+  top: 50%;
   right: 0;
   z-index: 10000;
   appearance: none;
@@ -122,6 +128,7 @@ input:focus-visible {
     49% 35%
   );
   margin-right: 1rem;
+  transform: translateY(-50%);
   cursor: pointer;
 }
 
