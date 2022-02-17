@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QApplication, QMainWindow
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QFontDatabase
+from PyQt6.QtGui import QFontDatabase, QIcon
 from components.tool_bar import ToolBar
 from components.main import Main
 import sys
@@ -9,7 +9,8 @@ import sys
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Browser")
+        self.setWindowTitle("Huemul Browser")
+        self.setWindowIcon(QIcon("assets/brand/logo-small.svg"))
 
         self.setWindowState(Qt.WindowState.WindowMaximized)
 

@@ -12,6 +12,11 @@ class Main(QTabWidget):
 
         self.parent = parent
 
+        with open("homepage/index.html", "r") as file:
+            self.homepage = file.read()
+            self.homepage_path = "file:///homepage/index.html"
+            self.homepage_url = QUrl(self.homepage_path)
+
         self.setStyleSheet("""
             QPushButton,
             QTabBar::tab{
@@ -76,7 +81,8 @@ class Main(QTabWidget):
         settings.setAttribute(QWebEngineSettings.WebAttribute.LocalContentCanAccessFileUrls, True)
 
     def change_url(self):
-        self.parent.tool_bar.url_edit.setText(self.currentWidget().url().toString())
+        url = self.currentWidget().url().toString()
+        self.parent.tool_bar.url_edit.setText("" if url == self.homepage_path else url)
 
     def change_title(self, tab, title):
         self.setTabText(self.indexOf(tab), title)
@@ -127,16 +133,20 @@ class Main(QTabWidget):
         self.add_tab()
         self.move_add_tab_button()
 
-    def add_tab(self, url="https://duckduckgo.com"):
+    def add_tab(self, url=None):
         tab = QWebEngineView()
-        tab.setUrl(QUrl(url))
+
+        if url:
+            tab.setUrl(QUrl(url))
+        else:
+            tab.setHtml(self.homepage, self.homepage_url)
+
         tab.urlChanged.connect(self.change_url)
+        tab.titleChanged.connect(lambda title: self.change_title(tab, title))
+        tab.iconChanged.connect(lambda icon: self.change_icon(tab, icon))
 
         self.addTab(tab, "New Tab")
         self.setCurrentWidget(tab)
-
-        tab.titleChanged.connect(lambda title: self.change_title(tab, title))
-        tab.iconChanged.connect(lambda icon: self.change_icon(tab, icon))
 
     def back(self):
         self.currentWidget().back()

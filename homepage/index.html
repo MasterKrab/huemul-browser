@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New tab</title>
+    <link rel="icon" href="../assets/brand/logo-medium.svg" />
+    <link rel="stylesheet" href="poppins.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="./scripts.js" defer></script>
+  </head>
+  <body>
+    <main class="main">
+      <h1 class="title">
+        <time id="clock" datetime="2022-02-17T00:00:00.000Z">00:00</time>
+      </h1>
+
+      <form class="form" id="form">
+        <input
+          type="search"
+          class="form__input"
+          placeholder="Search"
+          name="search"
+          aria-label="search"
+          aria-required="true"
+        />
+        <button class="form__button">
+          <img src="../assets/icons/search.svg" alt="search" />
+        </button>
+      </form>
+
+      <article class="news">
+        <h2 class="news__title">News</h2>
+        <ul class="news__list" id="news" aria-live="polite"></ul>
+      </article>
+    </main>
+
+    <template id="new-template">
+      <li class="new">
+        <article class="new__article">
+          <div class="new__content">
+            <h2 class="new__title">
+              <a class="new__link" href=""> </a>
+            </h2>
+            <time class="new__time"></time>
+          </div>
+        </article>
+      </li>
+    </template>
+  </body>
+</html>
