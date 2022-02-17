@@ -12,6 +12,8 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Huemul Browser")
         self.setWindowIcon(QIcon("assets/brand/logo-small.svg"))
 
+        self.setMinimumSize(350, 480)
+
         self.setWindowState(Qt.WindowState.WindowMaximized)
 
         self.setStyleSheet("""
