@@ -31,9 +31,7 @@ class ToolBar(QToolBar):
             QLabel {
                 padding-left: 5px;
                 padding-right: 5px;
-                margin-top: 1px;
                 margin-left: 5px;
-                margin-bottom: 1px;
                 border-top-left-radius: 5px;
                 border-bottom-left-radius: 5px;
             }
@@ -72,10 +70,5 @@ class ToolBar(QToolBar):
         self.url_edit = QLineEdit()
         self.url_edit.returnPressed.connect(lambda: self.parent.main.navigate(self.url_edit.text()))
         self.url_edit.setPlaceholderText("Search or enter address")
-
-        font = QFont("Poppins", 10)
-        font.setHintingPreference(QFont.HintingPreference.PreferNoHinting)
-        # font.setStyleStrategy(QFont.StyleStrategy.PreferAntialias)
-
-        self.url_edit.setFont(font)
+        self.url_edit.setFont(QFont("Poppins", 11))
         self.addWidget(self.url_edit)
