@@ -8,6 +8,8 @@ in [Python](https://www.python.org/) using [PyQt6](https://www.riverbankcomputin
 
 Project currently is in **development**, but it is working.
 
+![screenshot](screenshot.png)
+
 ## Contributing
 
 We would be pleased to receive a contribution from you, open a pull request and we will review it as soon as possible.
