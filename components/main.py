@@ -85,7 +85,7 @@ class Main(QTabWidget):
         self.parent.tool_bar.url_edit.setText("" if url == self.homepage_path else url)
 
     def change_title(self, tab, title):
-        self.setTabText(self.indexOf(tab), title)
+        self.setTabText(self.indexOf(tab), "New Tab" if title == self.homepage_path else title)
         self.move_add_tab_button()
 
     def change_icon(self, tab, icon):
