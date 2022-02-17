@@ -35,7 +35,10 @@ class MainWindow(QMainWindow):
 
 
 app = QApplication(sys.argv)
-QFontDatabase.addApplicationFont("assets/fonts/Poppins.ttf")
+QFontDatabase.addApplicationFont("assets/fonts/poppins/poppins-v19-latin-500.ttf")
+QFontDatabase.addApplicationFont("assets/fonts/poppins/poppins-v19-latin-600.ttf")
+QFontDatabase.addApplicationFont("assets/fonts/poppins/poppins-v19-latin-700.ttf")
+QFontDatabase.addApplicationFont("assets/fonts/poppins/poppins-v19-latin-regular.ttf")
 window = MainWindow()
 window.show()
 

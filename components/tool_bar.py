@@ -72,5 +72,10 @@ class ToolBar(QToolBar):
         self.url_edit = QLineEdit()
         self.url_edit.returnPressed.connect(lambda: self.parent.main.navigate(self.url_edit.text()))
         self.url_edit.setPlaceholderText("Search or enter address")
-        self.url_edit.setFont(QFont("Poppins", 10))
+
+        font = QFont("Poppins", 10)
+        font.setHintingPreference(QFont.HintingPreference.PreferNoHinting)
+        # font.setStyleStrategy(QFont.StyleStrategy.PreferAntialias)
+
+        self.url_edit.setFont(font)
         self.addWidget(self.url_edit)
