@@ -4,7 +4,7 @@ from PyQt6.QtGui import QFont
 from PyQt6.QtWebEngineWidgets import QWebEngineView
 from PyQt6.QtWebEngineCore import QWebEngineSettings, QWebEngineProfile
 import validators
-
+import os
 
 class Main(QTabWidget):
     def __init__(self, parent):
@@ -12,10 +12,7 @@ class Main(QTabWidget):
 
         self.parent = parent
 
-        with open("homepage/index.html", "r") as file:
-            self.homepage = file.read()
-            self.homepage_path = "file:///homepage/index.html"
-            self.homepage_url = QUrl(self.homepage_path)
+        self.homepage_url = QUrl.fromLocalFile(os.path.abspath("homepage/index.html"))
 
         self.setStyleSheet("""
             QPushButton,
@@ -79,13 +76,14 @@ class Main(QTabWidget):
         settings.setAttribute(QWebEngineSettings.WebAttribute.LocalStorageEnabled, True)
         settings.setAttribute(QWebEngineSettings.WebAttribute.LocalContentCanAccessRemoteUrls, True)
         settings.setAttribute(QWebEngineSettings.WebAttribute.LocalContentCanAccessFileUrls, True)
+        settings.setAttribute(QWebEngineSettings.WebAttribute.FullScreenSupportEnabled, True)
 
     def change_url(self):
         url = self.currentWidget().url().toString()
-        self.parent.tool_bar.url_edit.setText("" if url == self.homepage_path else url)
+        self.parent.tool_bar.url_edit.setText("" if url == self.homepage_url.toString() else url)
 
     def change_title(self, tab, title):
-        self.setTabText(self.indexOf(tab), "New Tab" if title == self.homepage_path else title)
+        self.setTabText(self.indexOf(tab), title)
         self.move_add_tab_button()
 
     def change_icon(self, tab, icon):
@@ -139,14 +137,17 @@ class Main(QTabWidget):
         if url:
             tab.setUrl(QUrl(url))
         else:
-            tab.setHtml(self.homepage, self.homepage_url)
+            tab.setUrl(self.homepage_url)
 
         tab.urlChanged.connect(self.change_url)
         tab.titleChanged.connect(lambda title: self.change_title(tab, title))
         tab.iconChanged.connect(lambda icon: self.change_icon(tab, icon))
 
+
         self.addTab(tab, "New Tab")
         self.setCurrentWidget(tab)
+
+        self.change_url()
 
     def back(self):
         self.currentWidget().back()
@@ -158,6 +159,12 @@ class Main(QTabWidget):
         self.currentWidget().reload()
 
     def navigate(self, url):
+        browser = self.currentWidget()
+
+        if os.path.exists(url):
+            browser.setUrl(QUrl.fromLocalFile(url))
+            return
+
         if validators.url(url):
             normalized_url = url
         elif validators.domain(url):
@@ -165,4 +172,4 @@ class Main(QTabWidget):
         else:
             normalized_url = f"https://duckduckgo.com/?q={url}"
 
-        self.currentWidget().setUrl(QUrl(normalized_url))
+        browser.setUrl(QUrl(normalized_url))
